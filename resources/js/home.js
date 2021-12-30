@@ -1,8 +1,7 @@
 const main = document.querySelector('.main');
 const main2 = document.querySelector('.main2');
-const search = document.querySelector('#search');
-const searchForm = document.querySelector('.searchForm');
-const serachMain = document.querySelector('.searchMain');
+
+
 
 getMovies(API_URL);
 
@@ -87,20 +86,31 @@ const makeCard = (id, data) => {
 
 //검색
 
-searchForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    let searchValue = `${search.value}`
+// searchForm.addEventListener("submit", (e) => {
+//     e.preventDefault();
+//     location.href=`search?&query=${search.value}`;
+    
+//     let searchValue = search.value
 
-    fetch(SEARCH_URL + "&query=" + `${searchValue}`)
-    .then(res => res.json())
-    .then(data => {
-        searcmain.innerHTML = data.name;
-    })
+//     fetch(SEARCH_URL + "&query=" + `${searchValue}`)
+//     .then(res => res.json())
+//     .then(data => {
 
-    // location.href=`search?&query=${search.value}`;
-    // searchMovie(searchURL+'&query='+search.value)
-})
-searchMovie(searchURL+'&query='+search.value)
+//         for(i=0; i<data.results.length; i++){
+//             searchMain.innerHTML += `
+
+//                 <div class="movie">
+//                     <img src="${data.results[i].poster_path? IMG_URL+data.results[i].poster_path: "${data.results[i].title}" }" alt="${data.results[i].title}" onclick="location.href = 'movies/${data.results[i].id}'">
+//                 </div>   
+//             `;
+//             }
+    
+//     })
+
+//     // location.href=`search?&query=${search.value}`;
+//     // searchMovie(searchURL+'&query='+search.value)
+// })
+// searchMovie(searchURL+'&query='+search.value)
 
 // function searchMovie(url) {
 //     fetch(url).then(res => res.json()).then(data => {

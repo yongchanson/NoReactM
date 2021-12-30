@@ -1,4 +1,4 @@
-const main = document.querySelector('.main');
+const main = document.querySelector('.personmain');
 const actorname = document.querySelector('.actorname');
 
 fetch(`${BASE_URL}/person/${person_id}/movie_credits?` + API_KEY)
@@ -9,7 +9,7 @@ fetch(`${BASE_URL}/person/${person_id}/movie_credits?` + API_KEY)
     for(i=0; i<data.cast.length; i++){
     main.innerHTML += `
         <div class="movie">
-            <img src="${data.cast[i].poster_path? IMG_URL+data.cast[i].poster_path: "${data.cast[i].title}" }" alt="${data.cast[i].title}" onclick="location.href = '/${data.cast[i].id}'">
+            <img src="${data.cast[i].poster_path? IMG_URL+data.cast[i].poster_path: "${data.cast[i].title}" }" alt="${data.cast[i].title}" onclick="location.href = 'movies/${data.cast[i].id}'">
         </div>   
     `;
     }
