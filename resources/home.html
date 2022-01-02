@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
-
     <link rel="stylesheet" href="static/css/home.css">
     <!-- <link rel="stylesheet" href="css/navi.css"> -->
-
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="848502809693-sigbg4fvbsvlgl80edri60oic1q2c0he.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
+    
 
     <!-- navbar -->
     <nav class="navi">
@@ -19,10 +21,12 @@
 
             <button onclick="location.href = '/search'" class="searchBtn"><img src="/static/img/serach.png" style="height:30px; filter: invert(100%);"></button>
             <button class="navbt2"><img src="/static/img/notice.png" style="height:30px; filter: invert(100%);"></button>
-            <button class="navbt3">프로필</button>
+            <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <a href="#" onclick="signOut();">Sign out</a>
+            <!-- <button class="navbt3">프로필</button> -->
         </div>
     </nav>
-
+    
  
     <!-- 영화포스터 -->
     <header class="main">
