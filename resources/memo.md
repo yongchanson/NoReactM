@@ -7,3 +7,14 @@
 
 - `app.use(express.static(initial_path)); -> app.use('/static', express.static('resources'));`
 - `<script src="js/api.js"></script> -> <script src="/static/js/api.js"></script>`
+
+2. mogndb
+
+- npm install mongoose --save
+- useNewUrlParser, useUnifiedTopology, useFindAndModify 및 useCreateIndex는 더 이상 지원되지 않는 옵션입니다. 제거하면 오류가 덜 생김.
+- Error on DB Connection:MongooseServerSelectionError: Invalid message siz
+  e: 1347703880, max allowed: 67108864
+  ```javascript
+  mongoose.connect("mongodb://localhost:5000", {}); ->
+  mongoose.connect("mongodb://localhost", {});
+  ```
