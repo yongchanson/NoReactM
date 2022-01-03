@@ -1,12 +1,19 @@
 // import express from "express";
+// import "./db";
+import mongoose from "mongoose";
+import express from "express";
+import path from "path";
 
-const express = require('express');
-const path = require('path');
-// const movieRouter = express.Router();
+// const express = require('express');
+// const path = require('path');
+
 
 let initial_path = path.join(__dirname, 'resources');
 
 let app = express();
+// var app = require('mongoose');
+// var mongoose = require('mongoose');
+
 
 // app.use(express.static(initial_path));
 app.use('/static', express.static('resources'));
@@ -45,3 +52,22 @@ app.listen(PORT, () => {
     console.log(`listenting on http://localhost:${PORT}`);
 })
 
+// import mongoose from "mongoose";
+
+mongoose.connect(
+    "mongodb://localhost",
+    {
+    //   useNewUrlParser: true,
+    //   useFindAndModify: false, 문제인부분
+    //useNewUrlParser: true, 
+    // useUnifiedTopology: true 
+    }
+  );
+  
+  const db = mongoose.connection;
+  
+  const handleOpen = () => console.log("✅  Connected to DB");
+  const handleError = (error) => console.log(`❌ Error on DB Connection:${error}`);
+  
+  db.once("open", handleOpen);
+  db.on("error", handleError);
