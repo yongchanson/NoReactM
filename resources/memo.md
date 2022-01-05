@@ -19,4 +19,7 @@
   mongoose.connect("mongodb://localhost", {});
   ```
 
+윹
 mongodb+srv://<username>:<password>@cluster0.ybfcy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+
+git rm -cached node_modules -r : git add 한 node_modules 취소

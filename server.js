@@ -38,16 +38,25 @@ app.get('/search', (req, res) => {
     res.sendFile(path.join(initial_path, "search.html"));
 })
 
-app.get('/join', (req, res) => {
-    res.sendFile(path.join(initial_path, "join.html"));
-})
+// app.get('/join', (req, res) => {
+//     res.sendFile(path.join(initial_path, "join.html"));
+// })
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(initial_path, "login.html"));
-})
+// app.get('/login', (req, res) => {
+//     res.sendFile(path.join(initial_path, "login.html"));
+// })
 
-app.get('/profile', (req, res) => {
-    res.sendFile(path.join(initial_path, "profile.html"));
+// app.get('/profile', (req, res) => {
+//     res.sendFile(path.join(initial_path, "profile.html"));
+// })
+app.post('/register', (req, res) => { //로그인에 필요한 정보를 client에서 가져오면 -> 데이터베이스에 넣어줌
+    const user = new User(req.body)
+    user.save((err, userInfo) => {
+        if(err) return res.json({ success: false, err})
+        return res.status(200).json({
+            success: true
+        })
+    })
 })
 
 app.get('/', (req, res) => {
@@ -57,6 +66,16 @@ app.get('/', (req, res) => {
 app.use((req, res) => {
     res.json("404 Not Found!");
 })
+
+const bodyParser = require('body-parser');
+const { User } = require('./resources/models/User');
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(bodyParser.json());
+
+
+
 
 const PORT = 5000;
 
