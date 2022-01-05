@@ -18,3 +18,5 @@
   mongoose.connect("mongodb://localhost:5000", {}); ->
   mongoose.connect("mongodb://localhost", {});
   ```
+
+mongodb+srv://<username>:<password>@cluster0.ybfcy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority

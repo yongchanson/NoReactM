@@ -12,7 +12,7 @@ let initial_path = path.join(__dirname, 'resources');
 
 let app = express();
 // var app = require('mongoose');
-// var mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 
 
 // app.use(express.static(initial_path));
@@ -38,6 +38,18 @@ app.get('/search', (req, res) => {
     res.sendFile(path.join(initial_path, "search.html"));
 })
 
+app.get('/join', (req, res) => {
+    res.sendFile(path.join(initial_path, "join.html"));
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(initial_path, "login.html"));
+})
+
+app.get('/profile', (req, res) => {
+    res.sendFile(path.join(initial_path, "profile.html"));
+})
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(initial_path, "home.html"));
 })
@@ -52,15 +64,10 @@ app.listen(PORT, () => {
     console.log(`listenting on http://localhost:${PORT}`);
 })
 
-// import mongoose from "mongoose";
 
 mongoose.connect(
-    "mongodb://localhost",
+    "mongodb+srv://yongchan2:1234@cluster0.ybfcy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
-    //   useNewUrlParser: true,
-    //   useFindAndModify: false, 문제인부분
-    //useNewUrlParser: true, 
-    // useUnifiedTopology: true 
     }
   );
   
@@ -71,3 +78,5 @@ mongoose.connect(
   
   db.once("open", handleOpen);
   db.on("error", handleError);
+
+  
