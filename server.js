@@ -69,6 +69,7 @@ app.use((req, res) => {
 
 const bodyParser = require('body-parser');
 const { User } = require('./resources/models/User');
+const config = require('./resources/config/key');
 
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -84,11 +85,9 @@ app.listen(PORT, () => {
 })
 
 
-mongoose.connect(
-    "mongodb+srv://yongchan2:1234@cluster0.ybfcy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    {
-    }
-  );
+mongoose.connect(config.mongoURI,
+    {}
+);
   
   const db = mongoose.connection;
   
