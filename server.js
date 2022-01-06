@@ -84,9 +84,9 @@ app.post('/api/users/login', (req, res) => {
     }
     
     //이메일이 있다면, 비밀번호 확인
-    user.comparePassword(req.body, (err, isMatch) => {
-      console.log('err',err)
-      console.log('isMatch',isMatch)
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      // console.log('err',err)
+      // console.log('isMatch',isMatch)
     
       if(!isMatch)
         return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." })
