@@ -3,6 +3,10 @@
 import mongoose from "mongoose";
 import express from "express";
 import path from "path";
+const bodyParser = require('body-parser');
+const { User } = require('./resources/models/User');
+const config = require('./resources/config/key');
+
 
 // const express = require('express');
 // const path = require('path');
@@ -49,6 +53,11 @@ app.get('/search', (req, res) => {
 // app.get('/profile', (req, res) => {
 //     res.sendFile(path.join(initial_path, "profile.html"));
 // })
+
+app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(bodyParser.json());
+
 app.post('/register', (req, res) => { //로그인에 필요한 정보를 client에서 가져오면 -> 데이터베이스에 넣어줌
     const user = new User(req.body)
     user.save((err, userInfo) => {
@@ -67,13 +76,7 @@ app.use((req, res) => {
     res.json("404 Not Found!");
 })
 
-const bodyParser = require('body-parser');
-const { User } = require('./resources/models/User');
-const config = require('./resources/config/key');
 
-app.use(bodyParser.urlencoded({extended: true}));
-
-app.use(bodyParser.json());
 
 
 
