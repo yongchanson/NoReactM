@@ -4,10 +4,10 @@ import mongoose from "mongoose";
 import express from "express";
 import path from "path";
 const bodyParser = require('body-parser');
-const { User } = require('./resources/models/User');
 const config = require('./resources/config/key');
+const cookieParser = require('cookie-parser');
 
-
+const { User } = require('./resources/models/User');
 // const express = require('express');
 // const path = require('path');
 
@@ -57,15 +57,52 @@ app.get('/search', (req, res) => {
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
-app.post('/register', (req, res) => { //로그인에 필요한 정보를 client에서 가져오면 -> 데이터베이스에 넣어줌
+app.post('/api/users/register', (req, res) => {
+
+    //회원 가입 할떄 필요한 정보들을  client에서 가져오면 
+    //그것들을  데이터 베이스에 넣어준다. 
     const user = new User(req.body)
+  
     user.save((err, userInfo) => {
-        if(err) return res.json({ success: false, err})
-        return res.status(200).json({
-            success: true
-        })
+      if (err) return res.json({ success: false, err })
+      return res.status(200).json({
+        success: true
+      })
     })
+  })
+
+app.post('/api/users/login', (req, res) => {
+    //이메일이 db에 있는지 확인
+    User.findOne({ email: req.body.email }, (err, user) => {
+        if(!user){
+            return res.join({
+                loginSuccess: false,
+                message: "이메일에 해당하는 유저가 없습니다."
+        })
+    }
+    
+    //이메일이 있다면, 비밀번호 확인
+    user.comparePassword(req.body, (err, isMatch) => {
+      console.log('err',err)
+      console.log('isMatch',isMatch)
+    
+      if(!isMatch)
+        return res.json({ loginSuccess: false, message: "비밀번호가 틀렸습니다." })
+    //비밀번호 맞다면, 토큰생성
+    user.generateToken((err, user) => { //user에 token이 저장되어 있음
+        if(err) return res.status(400).send(err);
+        
+        //token을 저장, 어디에? 쿠키, 로컬스토리지
+        res.cookie("x_auth", user.token)
+          .status(200)
+          .json({ loginSuccess: true, userId: user._id })
+        
+    
+      })
+    })
+  })
 })
 
 app.get('/', (req, res) => {

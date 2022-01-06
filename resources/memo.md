@@ -23,3 +23,6 @@
 mongodb+srv://<username>:<password>@cluster0.ybfcy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
 
 git rm -cached node_modules -r : git add 한 node_modules 취소
+npm i body-parser --save : body로 받기위함
+postman 설치
+npm i jsonwebtoken --save : token만들기
